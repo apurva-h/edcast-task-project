@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener {
         setupAdapter()
 
         binding.tryagain.setOnClickListener(View.OnClickListener {
+            //retry API on failure.
             setupObservers()
         })
     }
