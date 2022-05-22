@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">DemoApp</string>
     <string name="str_please_wait">Loading please wait</string>
+    <string name="str_error_msg">something went wrong please try again</string>
 </resources>

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.example.demoapp.R
 import com.example.demoapp.databinding.ActivityDetailsBinding
 import com.example.demoapp.model.CharactesDetails
 import com.example.demoapp.model.Status
@@ -58,7 +59,7 @@ class DetailsActivity : AppCompatActivity() {
                         }
                         Status.ERROR -> {
                             binding.progressBar.visibility = View.GONE
-                            binding.txtloading.text = "something went wrong please try again"
+                            binding.txtloading.text =getString(R.string.str_error_msg)
                         }
                         Status.LOADING -> {
                             binding.progressBar.visibility = View.VISIBLE

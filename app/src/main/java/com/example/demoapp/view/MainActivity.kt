@@ -1,10 +1,17 @@
 package com.example.demoapp.view
 
+import android.R
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.IntentFilter
+import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,10 +21,14 @@ import com.example.demoapp.model.StarWarData
 import com.example.demoapp.model.Status
 import com.example.demoapp.network.ApiHelper
 import com.example.demoapp.network.RetrofitBuilder
+import com.example.demoapp.receiver.ConnectionReceiver
 import com.example.demoapp.viewmodel.MainViewModel
 import com.example.demoapp.viewmodel.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener {
+
+class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener,
+    ConnectionReceiver.ReceiverListener {
 
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: MainAdapter
@@ -33,8 +44,14 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener {
 
         binding.tryagain.setOnClickListener(View.OnClickListener {
             //retry API on failure.
+            binding.txtloading.visibility = View.GONE
             setupObservers()
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkConnection()
     }
 
     private fun setupAdapter() {
@@ -97,5 +114,39 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener {
         b.putString("url", data)
         intent.putExtras(b)
         startActivity(intent)
+    }
+
+    private fun checkConnection() {
+        IntentFilter().apply {
+            this.addAction("android.new.conn.CONNECTIVITY_CHANGE")
+            registerReceiver(ConnectionReceiver(), this)
+        }
+        ConnectionReceiver.Listener = this
+        // Initialize connectivity manager
+        val manager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // Initialize network info
+        val networkInfo = manager.activeNetworkInfo
+        // get connection status
+        val isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting
+        showToast(isConnected)
+    }
+
+    private fun showToast(isConnected: Boolean) {
+        val message: String
+        // check condition
+        if (isConnected) {
+            // when internet is connected set message
+            message = "Connected to Internet"
+        } else {
+            // when internet is disconnected
+            message = "Not Connected to Internet"
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onNetworkChange(isConnected: Boolean) {
+        // display snack bar
+        showToast(isConnected)
     }
 }
