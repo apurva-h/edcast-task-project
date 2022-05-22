@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DemoApp</string>
+    <string name="str_please_wait">Loading please wait</string>
+</resources>
