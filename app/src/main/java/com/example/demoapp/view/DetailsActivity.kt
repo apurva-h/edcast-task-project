@@ -16,6 +16,7 @@ import com.example.demoapp.viewmodel.ViewModelProvider
 
 class DetailsActivity : AppCompatActivity() {
 
+    //this is details page to show characters details
     lateinit var binding: ActivityDetailsBinding
     private lateinit var viewModel: MainViewModel
 
