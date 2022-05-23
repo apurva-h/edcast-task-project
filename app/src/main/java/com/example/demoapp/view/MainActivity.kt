@@ -138,9 +138,11 @@ class MainActivity : AppCompatActivity(), MainAdapter.ItemClickListener,
         if (isConnected) {
             // when internet is connected set message
             message = "Connected to Internet"
+            binding.txtloading.text = message
         } else {
             // when internet is disconnected
             message = "Not Connected to Internet"
+            binding.txtloading.text = message
         }
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
