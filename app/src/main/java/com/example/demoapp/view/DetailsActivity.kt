@@ -73,10 +73,10 @@ class DetailsActivity : AppCompatActivity() {
 
 
     private fun setDetailsPage(model: CharactesDetails) {
-        binding.name.text = "Name is:" + model.name
-        binding.massWeight.text = "Mass weight is:" + model.mass
-        binding.hight.text = "Hight is:" + model.height
-        binding.createdDate.text = "Created date is:" + model.created
+        binding.name.text = "Name is: " + model.name
+        binding.massWeight.text = "Mass weight is: " + model.mass
+        binding.hight.text = "Hight is: " + model.height
+        binding.createdDate.text = "Created date is: " + model.created
     }
 
 }

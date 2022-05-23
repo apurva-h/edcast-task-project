@@ -30,7 +30,7 @@ class MainAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>() {
         val item = list[position]
 
         holder.binding.name.text = "charcters_$position"
-        holder.binding.url.text = "url:$item"
+        holder.binding.url.text = item
 
         holder.itemView.setOnClickListener(View.OnClickListener {
             listener.onListItemClick(item)
